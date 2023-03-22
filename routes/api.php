@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/teems', [TeemController::class, 'index']);
+Route::get('/teems/{id}', [TeemController::class, 'show']);
