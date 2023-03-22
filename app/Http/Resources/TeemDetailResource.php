@@ -19,7 +19,7 @@ class TeemDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'teem' => $this->teems_content,
-            'author' => $this->author,
+            'writer' => $this->whenLoaded('writer'),
             'created_at' => date_format($this->created_at, "y/m/d H:i:s"),
         ];
     }

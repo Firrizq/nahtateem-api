@@ -12,11 +12,11 @@ class TeemController extends Controller
     public function index(){
         $teems = Teem::all();
         // return response()->json($teem);
-        return TeemResource::collection($teems);
+        return TeemDetailResource::collection($teems -> loadMissing('writer:id,username'));
     }
     
     public function show($id){
-        $teem = Teem::findOrFail($id);
+        $teem = Teem::with('writer:id,username')->findOrFail($id);
         return new TeemDetailResource($teem);
     }
 }
