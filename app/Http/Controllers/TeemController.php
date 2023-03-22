@@ -55,6 +55,20 @@ class TeemController extends Controller
             'teems_content' => 'required',
         ]);
 
+        $image = null;
+
+        if ($request -> file) {
+            $fileName = $this->generateRandomString();
+            $extension = $request->file->extension();
+
+            $image = $fileName. '.' .$extension;
+            Storage::putFileAs('image', $request->file, $image);
+
+        }
+
+        // return response()->json('sudah dapat digunakan');
+        $request['image'] = $image;
+
         // return response()->json('success');
 
         $teem = Teem::findOrFail($id);
