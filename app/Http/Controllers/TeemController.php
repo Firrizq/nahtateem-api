@@ -40,6 +40,11 @@ class TeemController extends Controller
             'teems_content' => 'required',
         ]);
 
-        return response()->json('success');
+        // return response()->json('success');
+
+        $teem = Teem::findOrFail($id);
+        $teem->update($request->all());
+
+        return new TeemDetailResource($teem -> loadMissing('writer:id,username'));
     }
 }
