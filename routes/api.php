@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\TeemController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,8 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/create', [TeemController::class, 'store']);
     Route::patch('/edit-teems/{id}', [TeemController::class, 'update'])->middleware('teem.owner');
     Route::delete('/teems/{id}', [TeemController::class, 'delete'])->middleware('teem.owner');
+
+    Route::post('/comment', [CommentController::class, 'store']);
 
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::get('/profile', [AuthenticationController::class, 'profile']);

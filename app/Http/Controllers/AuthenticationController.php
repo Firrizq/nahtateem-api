@@ -43,7 +43,7 @@ class AuthenticationController extends Controller
     public function register(Request $request)
     {
         $request ->validate([
-            'firstname' => 'required',
+            'name' => 'required',
             'username' => 'required',
             'email' => 'required|email',
             'password' => 'required',
@@ -51,7 +51,7 @@ class AuthenticationController extends Controller
         ]);
 
         $user = User::create([
-            'firstname' => $request->firstname,
+            'name' => $request->name,
             'username'      => $request->username,
             'email'     => $request->email,
             'password'  => bcrypt($request->password),
