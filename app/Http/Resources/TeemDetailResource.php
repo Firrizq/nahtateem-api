@@ -19,6 +19,7 @@ class TeemDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'teem' => $this->teems_content,
+            'image' => $this->image,
             'writer' => $this->whenLoaded('writer'),
             'comment_total' => $this->whenLoaded('comments', function(){
                 return count($this->comments);

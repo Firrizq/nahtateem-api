@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TeemDetailResource;
 use App\Http\Resources\TeemResource;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Teem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -26,6 +27,20 @@ class TeemController extends Controller
             'teems_content' => 'required',
 
         ]);
+
+        $image = null;
+
+        if ($request -> file) {
+            $fileName = $this->generateRandomString();
+            $extension = $request->file->extension();
+
+            $image = $fileName. '.' .$extension;
+            Storage::putFileAs('image', $request->file, $image);
+
+        }
+
+        // return response()->json('sudah dapat digunakan');
+        $request['image'] = $image;
 
         // return response()->json('sudah dapat digunakan');
 
@@ -55,5 +70,15 @@ class TeemController extends Controller
         return response()->json([
             'message' => 'successfully deleted',
         ]);
+    }
+
+    function generateRandomString($length = 15) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }
