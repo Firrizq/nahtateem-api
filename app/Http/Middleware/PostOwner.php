@@ -22,7 +22,7 @@ class PostOwner
 
         if($teem->author != $currentuser->id){
             return response()->json([
-                'message' => 'gada data',
+                'message' => 'Data not found :(',
             ]);
         }
 

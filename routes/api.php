@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/teems', [TeemController::class, 'index']);
     Route::get('/teems/{id}', [TeemController::class, 'show']);
+    Route::post('/create', [TeemController::class, 'store']);
 
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::get('/profile', [AuthenticationController::class, 'profile']);
