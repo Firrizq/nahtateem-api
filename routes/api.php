@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\TeemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/teems', [TeemController::class, 'index']);
-Route::get('/teems/{id}', [TeemController::class, 'show']);
+Route::middleware(['auth:sanctum'])->group(function (){
+    Route::get('/teems', [TeemController::class, 'index']);
+    Route::get('/teems/{id}', [TeemController::class, 'show']);
+});
+
+Route::post('/login', [AuthenticationController::class, 'login']);
