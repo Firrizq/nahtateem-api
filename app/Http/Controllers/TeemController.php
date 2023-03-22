@@ -34,4 +34,12 @@ class TeemController extends Controller
         $teem = Teem::create($request->all());
         return new TeemDetailResource($teem -> loadMissing('writer:id,username'));
     }
+
+    public function update(Request $request, $id){
+        $request -> validate([
+            'teems_content' => 'required',
+        ]);
+
+        return response()->json('success');
+    }
 }
