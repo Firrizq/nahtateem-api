@@ -39,4 +39,32 @@ class AuthenticationController extends Controller
         $user = Auth::user();
         return response()->json($user);
     }
+
+    public function register(Request $request)
+    {
+        $request ->validate([
+            'firstname' => 'required',
+            'username' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'confirm_password' => 'required|same:password'
+        ]);
+
+        $user = User::create([
+            'firstname' => $request->firstname,
+            'username'      => $request->username,
+            'email'     => $request->email,
+            'password'  => bcrypt($request->password),
+        ]);
+
+        if($user) {
+            return response()->json([
+                'success' => true,
+                'user'    =>$user,
+                'token'    => $user->createToken('user login')->plainTextToken
+            ], 201);
+        }
+
+
+    }
 }
