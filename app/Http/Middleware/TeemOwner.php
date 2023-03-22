@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PostOwner
+class TeemOwner
 {
     /**
      * Handle an incoming request.
