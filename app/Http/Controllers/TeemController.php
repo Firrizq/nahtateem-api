@@ -47,4 +47,13 @@ class TeemController extends Controller
 
         return new TeemDetailResource($teem -> loadMissing('writer:id,username'));
     }
+
+    public function delete($id){
+        $teem = Teem::findOrFail($id);
+        $teem->delete();
+
+        return response()->json([
+            'message' => 'successfully deleted',
+        ]);
+    }
 }

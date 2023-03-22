@@ -21,6 +21,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/teems/{id}', [TeemController::class, 'show']);
     Route::post('/create', [TeemController::class, 'store']);
     Route::patch('/edit-teems/{id}', [TeemController::class, 'update'])->middleware('teem.owner');
+    Route::delete('/teems/{id}', [TeemController::class, 'delete'])->middleware('teem.owner');
 
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::get('/profile', [AuthenticationController::class, 'profile']);
