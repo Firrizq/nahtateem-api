@@ -20,6 +20,15 @@ class TeemDetailResource extends JsonResource
             'id' => $this->id,
             'teem' => $this->teems_content,
             'writer' => $this->whenLoaded('writer'),
+            'comment_total' => $this->whenLoaded('comments', function(){
+                return count($this->comments);
+            }),
+            'comments' => $this->whenLoaded('comments', function(){
+                return collect($this->comments)->each(function($comment){
+                    $comment->commentator;
+                    return $comment;
+                });
+            }),
             'created_at' => date_format($this->created_at, "y/m/d H:i:s"),
         ];
     }
