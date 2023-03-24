@@ -16,10 +16,11 @@ class CommentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'comment_content' => $this->comment_content,
             'user_id' => $this->user_id,
-            'commentator' => $this->whenLoaded('commentator'),
-            'created_at' => date_format($this->created_at, "y/m/d H:i:s"),
+            'teem_id' => $this->teem_id,
+            'comment' => $this->comment,
+            'parent_id' => $this->parent_id,
+            'replies' => CommentResource::collection($this->whenLoaded('replies'))
         ];
     }
 }

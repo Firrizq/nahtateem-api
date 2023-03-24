@@ -8,10 +8,24 @@ use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
 {
+    public function reply(Request $request, Comment $comment)
+{
+    $attributes = $request->validate([
+        'comment' => 'required|string|max:1000',
+    ]);
+
+    $reply = $comment->reply($attributes);
+
+    return response()->json([
+        'message' => 'Komentar balasan berhasil ditambahkan.',
+        'data' => $reply,
+    ]);
+}
+
     public function store(Request $request){
         $request->validate([
             'teem_id' => 'required|exists:teems,id',
-            'comment_content' => 'required'
+            'comment' => 'required'
         ]);
 
         $request['user_id'] = auth()->user()->id;
@@ -25,11 +39,11 @@ class CommentController extends Controller
 
     public function update(Request $request, $id){
         $request -> validate([
-            'comment_content' => 'required'
+            'comment' => 'required'
         ]);
 
         $comment = Comment::findOrFail($id);
-        $comment->update($request->only('comment_content'));
+        $comment->update($request->only('comment'));
 
         return new CommentResource($comment->loadMissing(['commentator:id,username']));
     }

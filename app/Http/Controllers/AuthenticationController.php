@@ -61,7 +61,7 @@ class AuthenticationController extends Controller
             return response()->json([
                 'success' => true,
                 'user'    =>$user,
-                'token'    => $user->createToken('user login')->plainTextToken
+                'token'   => $user->createToken('user login')->plainTextToken
             ], 201);
         }
 

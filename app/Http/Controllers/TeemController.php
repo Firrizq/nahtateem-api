@@ -14,7 +14,7 @@ class TeemController extends Controller
     public function index(){
         $teems = Teem::all();
         // return response()->json($teem);
-        return TeemDetailResource::collection($teems -> loadMissing('writer:id,username', 'comments:id,teem_id,user_id,comment_content'));
+        return TeemDetailResource::collection($teems -> loadMissing('writer:id,username', 'comments:id,teem_id,user_id,comment'));
     }
     
     public function show($id){
@@ -47,7 +47,7 @@ class TeemController extends Controller
         $request['author'] = Auth::user()->id;
 
         $teem = Teem::create($request->all());
-        return new TeemDetailResource($teem -> loadMissing('writer:id,username', 'comments:id,teem_id,user_id,comment_content'));
+        return new TeemDetailResource($teem -> loadMissing('writer:id,username', 'comments:id,teem_id,user_id,comment'));
     }
 
     public function update(Request $request, $id){

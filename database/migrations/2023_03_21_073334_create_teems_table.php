@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('teems', function (Blueprint $table) {
             $table->id();
             $table->text('teems_content');
+            $table->string('image', 255)->nullable();
             $table->unsignedBigInteger('author');
             $table->timestamps();
 
