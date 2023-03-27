@@ -15,7 +15,7 @@ class TeemController extends Controller
     public function index(){
         $teems = Teem::all();
         // return response()->json($teem);
-        return TeemDetailResource::collection($teems -> loadMissing('writer:id,username', 'comments:id,teem_id,user_id,comment'));
+        return TeemDetailResource::collection($teems -> loadMissing('writer:id,username'));
     }
     
     public function show($id){
