@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TeemDetailResource;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\TeemResource;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Teem;
@@ -18,8 +19,10 @@ class TeemController extends Controller
     }
     
     public function show($id){
-        $teem = Teem::with('writer:id,username')->findOrFail($id);
-        return new TeemDetailResource($teem);
+        $teem = Teem::with('writer:id,username','comments.replies')->findOrFail($id);
+        $comments = $teem->comments;
+
+        return new TeemDetailResource($teem, CommentResource::collection($comments));
     }
     
     public function store(Request $request){

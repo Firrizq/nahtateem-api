@@ -11,15 +11,17 @@ class CommentController extends Controller
     public function reply(Request $request, Comment $comment)
 {
     $attributes = $request->validate([
-        'comment' => 'required|string|max:1000',
+        'teem_id' => 'required|exists:teems,id',
+        'comment' => 'required',
     ]);
 
     $reply = $comment->reply($attributes);
 
-    return response()->json([
-        'message' => 'Komentar balasan berhasil ditambahkan.',
-        'data' => $reply,
-    ]);
+    // return response()->json([
+    //     'message' => 'Komentar balasan berhasil ditambahkan.',
+    //     'data' => $reply,
+    // ]);
+    return new CommentResource($comment->loadMissing(['replies:id']));
 }
 
     public function store(Request $request){
