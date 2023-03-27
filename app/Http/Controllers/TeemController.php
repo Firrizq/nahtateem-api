@@ -32,20 +32,24 @@ class TeemController extends Controller
         ]);
 
         $image = null;
-
+        $validextension = ['jpg', 'jpeg', 'png', 'mp4'];
+        $extension = $request->file->extension();
+        
+        if(!in_array($extension, $validextension)){
+            return response()->json([
+                "Supported file : .jpg .jpeg .png .mp4"
+            ]);
+        }
+        
         if ($request -> file) {
             $fileName = $this->generateRandomString();
-            $extension = $request->file->extension();
-
             $image = $fileName. '.' .$extension;
+
             Storage::putFileAs('image', $request->file, $image);
 
         }
 
-        // return response()->json('sudah dapat digunakan');
         $request['image'] = $image;
-
-        // return response()->json('sudah dapat digunakan');
 
         $request['author'] = Auth::user()->id;
 
