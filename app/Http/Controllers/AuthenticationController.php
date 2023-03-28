@@ -39,6 +39,17 @@ class AuthenticationController extends Controller
         $user = Auth::user();
         return response()->json($user);
     }
+    
+    public function teemer($id){
+        $teemer = User::find($id);
+
+        if(!$teemer) {
+            return response()->json(['message' => 'Profile not found'], 404);
+        }
+
+        return response()->json(['data' => $teemer], 200);
+    }
+
 
     public function register(Request $request)
     {
