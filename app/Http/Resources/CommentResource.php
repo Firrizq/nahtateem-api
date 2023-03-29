@@ -19,6 +19,7 @@ class CommentResource extends JsonResource
             'user_id' => $this->user_id,
             'teem_id' => $this->teem_id,
             'comment' => $this->comment,
+            'image' => $this->image,
             'parent_id' => $this->parent_id,
             'replies' => CommentResource::collection($this->whenLoaded('replies'))
         ];
